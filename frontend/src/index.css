@@ -1,0 +1,155 @@
+main {
+  min-height: 80vh;
+}
+
+h3 {
+  padding: 1rem 0;
+}
+
+h1 {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+}
+
+h2 {
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
+}
+td,
+th {
+  text-align: center;
+}
+
+.rating span {
+  margin: 0.1rem;
+}
+
+/* carousel */
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  display: flex;
+}
+.carousel-caption {
+  position: absolute;
+  top: 0;
+}
+
+.carousel-caption h2 {
+  color: #fff;
+}
+
+.carousel img {
+  height: 300px;
+  padding: 30px;
+  margin: 40px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.card {
+  text-align: center;
+}
+.form-check {
+  margin-left: 20px;
+}
+.form-check-label {
+  padding-left: 0.25rem;
+}
+.carousel a {
+  margin: 0 auto;
+}
+.linkMenu {
+  margin-right: 20%;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .newContainer {
+    font-family: Fontana;
+    text-align: center;
+    letter-spacing: 2vw;
+    font-size: 56vmax;
+    width: 100vw;
+    position: relative;
+    margin-left: -50vw;
+    left: 50%;
+    background-color: black;
+    margin-bottom: 20px;
+    line-height: 38vmax;
+    height: 40vmax;
+  }
+  .newText {
+    padding: 0;
+    overflow: hidden;
+    color: white;
+  }
+}
+@media (max-width: 500px) {
+  .newText {
+    font-size: 87vmin;
+  }
+}
+
+@media (max-width: 900px) {
+  .carousel-caption h2 {
+    font-size: 2.5vw;
+  }
+  #basic-navbar-nav {
+    margin-left: 40px;
+    font-size: 5vw;
+    font-family: "FrederickatheGreat";
+  }
+}
+
+@media (min-width: 901px) {
+  #basic-navbar-nav {
+    margin-left: 40px;
+    font-family: "FrederickatheGreat";
+  }
+  .newContainer {
+    font-family: Fontana;
+    letter-spacing: calc(100vw / 4.7);
+    font-size: 56vmax;
+    width: 100vw;
+    position: relative;
+    margin-left: -50vw;
+    left: 50%;
+    background-color: black;
+    margin-bottom: 20px;
+    line-height: 38vmax;
+    height: 40vmax;
+  }
+  .newText {
+    padding: 0;
+    overflow: hidden;
+    color: white;
+  }
+}
+
+@font-face {
+  font-family: "FrederickatheGreat";
+  src: local("FrederickatheGreat"),
+    url(/fonts/FrederickatheGreat-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: Fontana;
+  src: url("/fonts/Fntana-0WGaz.otf") format("opentype");
+}
+
+.navbar-brand {
+  font-family: "FrederickatheGreat";
+  font-size: 30px;
+  margin-left: 40px;
+  margin-right: 10%;
+}
+#searchBarInput {
+  width: 100%;
+}
+.navbar.bg-light {
+  border-color: #fff;
+}
+nav {
+  z-index: 998;
+}
