@@ -14,6 +14,7 @@ const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
@@ -57,6 +58,7 @@ const ProfileScreen = ({ location, history }) => {
         setName(userInfo.name);
         setEmail(userInfo.email);
         setPhone(userInfo.phone);
+        setUserName(userInfo.userName);
       }
     }
   }, [dispatch, history, userInfo, user, success]);
@@ -68,7 +70,14 @@ const ProfileScreen = ({ location, history }) => {
       handleShowMessageProfileParent(true);
     } else {
       dispatch(
-        updateUserProfile({ id: user._id, name, email, phone, password })
+        updateUserProfile({
+          id: user._id,
+          name,
+          userName,
+          email,
+          phone,
+          password,
+        })
       );
       handleShowMessageSuccessParent(true);
     }
@@ -117,6 +126,15 @@ const ProfileScreen = ({ location, history }) => {
                   placeholder="Introduzca nombre"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group controlId="userName">
+                <Form.Label>Usuario</Form.Label>
+                <Form.Control
+                  type="userName"
+                  placeholder="Introduzca usuario"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
                 ></Form.Control>
               </Form.Group>
               <Form.Group controlId="phone">

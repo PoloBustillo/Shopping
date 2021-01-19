@@ -48,8 +48,17 @@
     (function($){
         $(window).on('load', function(){
             $.instagramFeed({
-                'username': 'leolandiatienda',
-                'get_data': true,
+              'username': 'leolandiatienda',
+              "container": "#instagram-feed",
+              "display_profile": true,
+              "display_biography": true,
+              "display_gallery": true,
+              "callback": null,
+              "lazy_load": false,
+              "styling": true,
+              "items": 100,
+              "items_per_row": 4,
+               "margin": 1,
                 'callback': (json) => {
                     window.DATA_INSTAGRAM=json
                 }

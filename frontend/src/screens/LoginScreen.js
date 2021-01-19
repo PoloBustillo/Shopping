@@ -11,7 +11,7 @@ import PasswordInput from "../components/PasswordInput";
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState("");
-
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
@@ -29,15 +29,24 @@ const LoginScreen = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(login(email, userName, password));
   };
 
   return (
     <FormContainer>
-      <h1>Acceder a Leolandia</h1>
+      <h1>Acceder con tu usuario o email</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
+        <Form.Group controlId="name">
+          <Form.Label>Usuario</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Introduzca nombre"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
         <EmailInput
           enableValidations={false}
           value={email}

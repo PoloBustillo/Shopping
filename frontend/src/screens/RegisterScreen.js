@@ -12,6 +12,7 @@ import PasswordInput from "../components/PasswordInput";
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [userName, setUserName] = useState("");
   const [showMessage, setShowMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +43,7 @@ const RegisterScreen = ({ location, history }) => {
         setMessage("Contraseñas diferentes");
         setShowMessage(true);
       } else {
-        dispatch(register(name, email, password, phone));
+        dispatch(register(name, userName, email, password, phone));
       }
     }
   };
@@ -70,6 +71,15 @@ const RegisterScreen = ({ location, history }) => {
             placeholder="Introduzca nombre"
             value={name}
             onChange={(e) => setName(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+        <Form.Group controlId="userName">
+          <Form.Label>Usuario</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Introduzca usuario"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <Form.Group controlId="phone">

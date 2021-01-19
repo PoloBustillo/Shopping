@@ -14,21 +14,21 @@ import ReactScrollDetect, { DetectSection } from "react-scroll-detect";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 
 const HomeScreen = ({ match, history }) => {
+  const [cur, handlePageChange] = React.useState(0);
   const keyword = match.params.keyword;
 
-  const [cur, handlePageChange] = React.useState(0);
   const pageNumber = match.params.pageNumber || 1;
 
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
 
   useEffect(() => {
+    dispatch(listProducts(keyword, pageNumber));
     setTimeout(function () {
       window.scrollTo(0, 0);
     }, 1000);
-    dispatch(listProducts());
   }, [dispatch, keyword, pageNumber]);
 
   return (
@@ -96,7 +96,11 @@ const HomeScreen = ({ match, history }) => {
             ))}
           </Row>
 
-          <Paginate pages={1} page={1} keyword={keyword ? keyword : ""} />
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ""}
+          />
         </>
       )}
       <div id="instagram-feed" className="instagram_feed"></div>

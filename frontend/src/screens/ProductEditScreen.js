@@ -15,6 +15,7 @@ const ProductEditScreen = ({ match, history }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
+  const [imageData, setImageData] = useState();
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
@@ -24,6 +25,8 @@ const ProductEditScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const { loading, error, product } = productDetails;
 
   const productUpdate = useSelector((state) => state.productUpdate);
@@ -52,37 +55,51 @@ const ProductEditScreen = ({ match, history }) => {
     }
   }, [dispatch, history, productId, product, successUpdate]);
 
-  const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
+  const uploadFileHandler = async () => {
+    const file = imageData;
     const formData = new FormData();
     formData.append("image", file);
     setUploading(true);
-
+    let data = "";
     try {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${userInfo.token}`,
         },
       };
 
-      const { data } = await axios.post("/api/upload", formData, config);
+      const configDeleteOld = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
 
+      const imageDeleted = await axios.delete(
+        `/api/upload/${encodeURIComponent(product.image)}`,
+        configDeleteOld
+      );
+      const imageInfo = await axios.post("/api/upload", formData, config);
+      data = imageInfo.data;
       setImage(data);
       setUploading(false);
     } catch (error) {
       console.error(error);
       setUploading(false);
     }
+    return data;
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    let imagePath = imageData ? await uploadFileHandler() : product.image;
     dispatch(
       updateProduct({
         _id: productId,
         name,
         price,
-        image,
+        image: imagePath,
         brand,
         category,
         description,
@@ -129,16 +146,18 @@ const ProductEditScreen = ({ match, history }) => {
             <Form.Group controlId="image">
               <Form.Label>Imagen</Form.Label>
               <Form.Control
+                disabled
                 type="text"
                 placeholder="Introduzca imagen url"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
+                value={imageData ? imageData.name : ""}
               ></Form.Control>
               <Form.File
                 id="image-file"
-                label="Choose File"
+                label="Elige una imagen"
                 custom
-                onChange={uploadFileHandler}
+                onChange={(e) => {
+                  setImageData(e.target.files[0]);
+                }}
               ></Form.File>
               {uploading && <Loader />}
             </Form.Group>

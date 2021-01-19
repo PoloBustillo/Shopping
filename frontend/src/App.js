@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Header from "./components/Header";
@@ -21,8 +21,39 @@ import OrderListScreen from "./screens/OrderListScreen";
 import MouseParticles from "react-mouse-particles";
 import AnimatedCursor from "react-animated-cursor";
 import ScrollToTop from "./components/ScrollToTop";
+import { useIdleTimer } from "react-idle-timer";
 
 const App = () => {
+  const [showModal, setShowModal] = useState();
+  const [isTimedOut, setIsTimedOut] = useState();
+
+  const handleOnIdle = (e) => {
+    console.log("user is idle", e);
+    if (isTimedOut) {
+      console.log("LOGOUT");
+    } else {
+      console.log("MODAL");
+      setShowModal(true);
+      reset();
+      setIsTimedOut(true);
+    }
+  };
+
+  const handleOnActive = (event) => {
+    setIsTimedOut(false);
+  };
+
+  const handleOnAction = (e) => {
+    setIsTimedOut(false);
+  };
+
+  const { getRemainingTime, getLastActiveTime, reset } = useIdleTimer({
+    timeout: 5000,
+    onIdle: handleOnIdle,
+    onActive: handleOnActive,
+    onAction: handleOnAction,
+    debounce: 500,
+  });
   return (
     <Router>
       <ScrollToTop>
@@ -35,7 +66,7 @@ const App = () => {
           color={"random"}
           alpha={0.16}
           level={6}
-          cull="navbar,col,fb-customerchat,alert,link,table,hamburger-react,navbar-toggler,navbar-collapse,navbar-brand,list-group-item,navbar-nav,form-control,form-group,btn,card,card-body,carousel"
+          cull="navbar,pagination,col,fb-customerchat,alert,link,table,hamburger-react,navbar-toggler,navbar-collapse,navbar-brand,list-group-item,navbar-nav,form-control,form-group,btn,card,card-body,carousel"
         />
         <AnimatedCursor
           innerSize={12}
@@ -78,7 +109,7 @@ const App = () => {
             <Route path="/busqueda/:keyword" component={HomeScreen} exact />
             <Route path="/pagina/:pageNumber" component={HomeScreen} exact />
             <Route
-              path="/busqueda/:keyword/page/:pageNumber"
+              path="/busqueda/:keyword/pagina/:pageNumber"
               component={HomeScreen}
               exact
             />

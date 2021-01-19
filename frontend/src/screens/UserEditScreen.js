@@ -13,6 +13,7 @@ const UserEditScreen = ({ match, history }) => {
 
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -39,6 +40,7 @@ const UserEditScreen = ({ match, history }) => {
         setName(user.name);
         setEmail(user.email);
         setPhone(user.phone);
+        setUserName(user.userName);
         setIsAdmin(user.isAdmin);
       }
     }
@@ -46,7 +48,9 @@ const UserEditScreen = ({ match, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(updateUser({ _id: userId, name, email, phone, isAdmin }));
+    dispatch(
+      updateUser({ _id: userId, name, userName, email, phone, isAdmin })
+    );
   };
 
   return (
@@ -73,7 +77,15 @@ const UserEditScreen = ({ match, history }) => {
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
-
+            <Form.Group controlId="userName">
+              <Form.Label>Usuario</Form.Label>
+              <Form.Control
+                type="userName"
+                placeholder="Introduzca usuario"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control

@@ -44,15 +44,13 @@ const ProductScreen = ({ history, match }) => {
     if (successProductReview) {
       setRating(0);
       setComment("");
-    }
-    if (!product._id || product._id !== match.params.id) {
-      dispatch(listProductDetails(match.params.id));
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
-  }, [dispatch, match, successProductReview, product]);
+    dispatch(listProductDetails(match.params.id));
+  }, [dispatch, match, successProductReview]);
 
   const addToCartHandler = () => {
-    history.push(`/compras/${match.params.id}?qty=${qty}`);
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
   const submitHandler = (e) => {
